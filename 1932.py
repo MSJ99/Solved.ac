@@ -13,4 +13,4 @@ if __name__ == "__main__":
                                 [i], tri[cnt-2][i] + tri[cnt-1][i+1])
         cnt -= 1
 
-    print(tri[0])
+    print(tri[0][0])
