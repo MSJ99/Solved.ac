@@ -1,29 +1,35 @@
 import sys
-from collections import deque
 
 
 if __name__ == "__main__":
-    N = int(sys.stdin.readline())
-    graph = [[] for _ in range(N+1)]
-    M = int(sys.stdin.readline())
+    N, M = map(int, sys.stdin.readline().split())
+    graph = []
+    for i in range(N):
+        row = []
+        for j in range(N):
+            if i == j:
+                row.append(0)
+            else:
+                row.append(1e9)
+        graph.append(row)
     for _ in range(M):
         A, B = map(int, sys.stdin.readline().split())
-        graph[A].append(B)
-        graph[B].append(A)
+        graph[A-1][B-1] = 1
+        graph[B-1][A-1] = 1
 
-    visited = [False] * (N+1)
-    q = deque()
-    q.append(1)
-    visited[1] = True
-    while q:
-        now = q.popleft()
-        for x in graph[now]:
-            if visited[x] == False:
-                q.append(x)
-                visited[x] = True
+    for k in range(N):
+        for i in range(N):
+            for j in range(N):
+                if graph[i][j] > graph[i][k] + graph[k][j]:
+                    graph[i][j] = graph[i][k] + graph[k][j]
 
-    cnt = 0
-    for i in range(2, N+1):
-        if visited[i] == True:
-            cnt += 1
-    print(cnt)
+    res = []
+    for x in graph:
+        sum = 0
+        for y in x:
+            if y == 1e9:
+                continue
+            sum += y
+        res.append(sum)
+
+    print(res.index(min(res)) + 1)
