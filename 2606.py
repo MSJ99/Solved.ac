@@ -3,8 +3,9 @@ from collections import deque
 
 
 if __name__ == "__main__":
-    N, M = map(int, sys.stdin.readline().split())
+    N = int(sys.stdin.readline())
     graph = [[] for _ in range(N+1)]
+    M = int(sys.stdin.redaline())
     for _ in range(M):
         A, B = map(int, sys.stdin.readline().split())
         graph[A].append(B)
